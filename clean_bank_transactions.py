@@ -45,8 +45,8 @@ def date_to_str(d: datetime) -> str:
 def clean_rows(filepath: str):
     with open(filepath) as csv_file:
         csv_reader = csv.reader(csv_file)
-        clean_rows = [clean_dirty_row(row) for row in csv_reader]
-        return [row for row in clean_rows if row]
+        cleaned_rows = [clean_dirty_row(row) for row in csv_reader]
+        return [row for row in cleaned_rows if row]
 
 
 def write_csv(filepath: str, rows: List[List[str]]):
@@ -68,5 +68,10 @@ def generate_output_fp(csv_fp: str, rows: List[List[str]]):
 
 cleaned_rows = clean_rows(filepath=csv_fp)
 output_fp = generate_output_fp(csv_fp=csv_fp, rows=cleaned_rows)
+output_fp.unlink(missing_ok=True)
 print(f"Writing to {output_fp}...")
 write_csv(filepath=output_fp, rows=cleaned_rows)
+
+
+print()
+print(f"{output_fp} created")

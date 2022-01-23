@@ -50,10 +50,9 @@ def clean_rows(filepath: str):
 
 
 def write_csv(filepath: str, rows: List[List[str]]):
-    with open(filepath, 'w') as csv_file:
-        writer = csv.writer(csv_file)
-        for r in rows:
-            writer.writerow(r)
+    with open(filepath, 'w', newline='') as csv_file:
+        writer = csv.writer(csv_file, dialect='unix')
+        writer.writerows(rows)
 
 
 def generate_output_fp(csv_fp: str, rows: List[List[str]]):
